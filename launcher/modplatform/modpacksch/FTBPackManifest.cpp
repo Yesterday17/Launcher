@@ -63,7 +63,7 @@ static void loadVersionInfo(ModpacksCH::VersionInfo & v, QJsonObject & obj)
 
     // CurseForge packs don't have specs.
     if (obj.contains("specs")) {
-        auto specs = Json::requireObject(obj, "specs");
+        auto specs = Json::requireValueObject(obj, "specs");
         loadSpecs(v.specs, specs);
     }
 }
@@ -83,7 +83,7 @@ void ModpacksCH::loadModpack(ModpacksCH::Modpack & m, QJsonObject & obj)
     auto artArr = Json::requireArray(obj, "art");
     for (QJsonValueRef artRaw : artArr)
     {
-        auto artObj = Json::requireObject(artRaw);
+        auto artObj = Json::requireValueObject(artRaw);
         ModpacksCH::Art art;
         loadArt(art, artObj);
         m.art.append(art);
@@ -91,7 +91,7 @@ void ModpacksCH::loadModpack(ModpacksCH::Modpack & m, QJsonObject & obj)
     auto authorArr = Json::requireArray(obj, "authors");
     for (QJsonValueRef authorRaw : authorArr)
     {
-        auto authorObj = Json::requireObject(authorRaw);
+        auto authorObj = Json::requireValueObject(authorRaw);
         ModpacksCH::Author author;
         loadAuthor(author, authorObj);
         m.authors.append(author);
@@ -99,7 +99,7 @@ void ModpacksCH::loadModpack(ModpacksCH::Modpack & m, QJsonObject & obj)
     auto versionArr = Json::requireArray(obj, "versions");
     for (QJsonValueRef versionRaw : versionArr)
     {
-        auto versionObj = Json::requireObject(versionRaw);
+        auto versionObj = Json::requireValueObject(versionRaw);
         ModpacksCH::VersionInfo version;
         loadVersionInfo(version, versionObj);
         m.versions.append(version);
@@ -107,7 +107,7 @@ void ModpacksCH::loadModpack(ModpacksCH::Modpack & m, QJsonObject & obj)
     auto tagArr = Json::requireArray(obj, "tags");
     for (QJsonValueRef tagRaw : tagArr)
     {
-        auto tagObj = Json::requireObject(tagRaw);
+        auto tagObj = Json::requireValueObject(tagRaw);
         ModpacksCH::Tag tag;
         loadTag(tag, tagObj);
         m.tags.append(tag);
@@ -165,14 +165,14 @@ void ModpacksCH::loadVersion(ModpacksCH::Version & m, QJsonObject & obj)
 
     // CurseForge packs don't have specs.
     if (obj.contains("specs")) {
-        auto specs = Json::requireObject(obj, "specs");
+        auto specs = Json::requireValueObject(obj, "specs");
         loadSpecs(m.specs, specs);
     }
 
     auto targetArr = Json::requireArray(obj, "targets");
     for (QJsonValueRef targetRaw : targetArr)
     {
-        auto versionObj = Json::requireObject(targetRaw);
+        auto versionObj = Json::requireValueObject(targetRaw);
         ModpacksCH::VersionTarget target;
         loadVersionTarget(target, versionObj);
         m.targets.append(target);
@@ -180,7 +180,7 @@ void ModpacksCH::loadVersion(ModpacksCH::Version & m, QJsonObject & obj)
     auto fileArr = Json::requireArray(obj, "files");
     for (QJsonValueRef fileRaw : fileArr)
     {
-        auto fileObj = Json::requireObject(fileRaw);
+        auto fileObj = Json::requireValueObject(fileRaw);
         ModpacksCH::VersionFile file;
         loadVersionFile(file, fileObj);
         m.files.append(file);

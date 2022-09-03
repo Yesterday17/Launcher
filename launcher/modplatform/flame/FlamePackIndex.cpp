@@ -12,7 +12,7 @@ void Flame::loadIndexedPack(Flame::IndexedPack & pack, QJsonObject & obj)
     bool thumbnailFound = false;
     auto attachments = Json::requireArray(obj, "attachments");
     for(auto attachmentRaw: attachments) {
-        auto attachmentObj = Json::requireObject(attachmentRaw);
+        auto attachmentObj = Json::requireValueObject(attachmentRaw);
         bool isDefault = attachmentObj.value("isDefault").toBool(false);
         if(isDefault) {
             thumbnailFound = true;
@@ -28,7 +28,7 @@ void Flame::loadIndexedPack(Flame::IndexedPack & pack, QJsonObject & obj)
 
     auto authors = Json::requireArray(obj, "authors");
     for(auto authorIter: authors) {
-        auto author = Json::requireObject(authorIter);
+        auto author = Json::requireValueObject(authorIter);
         Flame::ModpackAuthor packAuthor;
         packAuthor.name = Json::requireString(author, "name");
         packAuthor.url = Json::requireString(author, "url");
@@ -40,7 +40,7 @@ void Flame::loadIndexedPack(Flame::IndexedPack & pack, QJsonObject & obj)
     // check if there are some files before adding the pack
     auto files = Json::requireArray(obj, "latestFiles");
     for(auto fileIter: files) {
-        auto file = Json::requireObject(fileIter);
+        auto file = Json::requireValueObject(fileIter);
         int id = Json::requireInteger(file, "id");
 
         // NOTE: for now, ignore everything that's not the default...
@@ -65,7 +65,7 @@ void Flame::loadIndexedPackVersions(Flame::IndexedPack & pack, QJsonArray & arr)
 {
     QVector<Flame::IndexedVersion> unsortedVersions;
     for(auto versionIter: arr) {
-        auto version = Json::requireObject(versionIter);
+        auto version = Json::requireValueObject(versionIter);
         Flame::IndexedVersion file; 
 
         file.addonId = pack.addonId;

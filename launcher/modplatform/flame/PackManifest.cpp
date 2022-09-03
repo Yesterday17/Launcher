@@ -23,7 +23,7 @@ static void loadMinecraftV1(Flame::Minecraft & m, QJsonObject & minecraft)
     auto arr = Json::ensureArray(minecraft, "modLoaders", QJsonArray());
     for (QJsonValueRef item : arr)
     {
-        auto obj = Json::requireObject(item);
+        auto obj = Json::requireValueObject(item);
         Flame::Modloader loader;
         loadModloaderV1(loader, obj);
         m.modLoaders.append(loader);
@@ -32,7 +32,7 @@ static void loadMinecraftV1(Flame::Minecraft & m, QJsonObject & minecraft)
 
 static void loadManifestV1(Flame::Manifest & m, QJsonObject & manifest)
 {
-    auto mc = Json::requireObject(manifest, "minecraft");
+    auto mc = Json::requireValueObject(manifest, "minecraft");
     loadMinecraftV1(m.minecraft, mc);
     m.name = Json::ensureString(manifest, QString("name"), "Unnamed");
     m.version = Json::ensureString(manifest, QString("version"), QString());
@@ -40,7 +40,7 @@ static void loadManifestV1(Flame::Manifest & m, QJsonObject & manifest)
     auto arr = Json::ensureArray(manifest, "files", QJsonArray());
     for (QJsonValueRef item : arr)
     {
-        auto obj = Json::requireObject(item);
+        auto obj = Json::requireValueObject(item);
         Flame::File file;
         loadFileV1(file, obj);
         m.files.append(file);
