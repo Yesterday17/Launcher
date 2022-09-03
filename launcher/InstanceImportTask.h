@@ -68,6 +68,7 @@ private: /* data */
         Unknown,
         MultiMC,
         Technic,
+        Flame,
         Modrinth,
     } m_modpackType = ModpackType::Unknown;
 };
